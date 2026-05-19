@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.MenuManagementController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+
+            <Label text="|" style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size:18; -fx-padding: 0 2 0 2;"/>
+            <Label text="Menu Management" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="18">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <!-- Left: table -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                <Label text="Menu Items" styleClass="section-header"/>
+                <TableView fx:id="menuTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="idCol"       text="ID"       prefWidth="50"/>
+                        <TableColumn fx:id="nameCol"     text="Name"     prefWidth="200"/>
+                        <TableColumn fx:id="categoryCol" text="Category" prefWidth="120"/>
+                        <TableColumn fx:id="priceCol"    text="Price"    prefWidth="100"/>
+                        <TableColumn fx:id="statusCol"   text="Status"   prefWidth="110"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Right: form -->
+            <VBox spacing="12" prefWidth="300" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                <Label text="Add / Edit Item" styleClass="section-header"/>
+
+                <Label text="Name *" styleClass="form-label"/>
+                <TextField fx:id="nameField" promptText="e.g. Butter Chicken" styleClass="input-field"/>
+
+                <Label text="Category *" styleClass="form-label"/>
+                <TextField fx:id="categoryField" promptText="e.g. Main Course" styleClass="input-field"/>
+
+                <Label text="Price (₹) *" styleClass="form-label"/>
+                <TextField fx:id="priceField" promptText="e.g. 250.00" styleClass="input-field"/>
+
+                <Label text="Description" styleClass="form-label"/>
+                <TextArea fx:id="descriptionArea" promptText="Optional description…"
+                          prefHeight="80" styleClass="input-field" wrapText="true"/>
+
+                <CheckBox fx:id="availableCheck" text="Available for ordering" selected="true"/>
+
+                <Label fx:id="statusLabel" wrapText="true"/>
+
+                <HBox spacing="10">
+                    <Button text="💾 Save"  onAction="#handleSave"  styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Clear"    onAction="#handleClear" styleClass="secondary-button"/>
+                </HBox>
+                <Button fx:id="deleteButton" text="🗑 Delete Selected" onAction="#handleDelete"
+                        styleClass="danger-button" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.OnlineOrdersDashboardController"
+            styleClass="root-pane">
+
+    <!-- ── Top Bar ───────────────────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+
+            <Label text="|" style="-fx-text-fill:rgba(255,255,255,0.35);-fx-font-size:18;-fx-padding:0 2 0 2;"/>
+            <Label text="Online Orders" styleClass="app-title"/>
+
+            <!-- New order badge -->
+            <StackPane>
+                <Label fx:id="lblNewBadge" text=""
+                       style="-fx-background-color:#e74c3c;-fx-text-fill:white;-fx-font-size:11;-fx-font-weight:bold;-fx-background-radius:10;-fx-padding:2 7;"
+                       visible="false"/>
+            </StackPane>
+
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Button text="Menu Sync"    onAction="#handleMenuSync"   styleClass="icon-button"/>
+            <Button text="⚙ Config"    onAction="#handleOpenConfig" styleClass="icon-button"/>
+            <Button text="⟳ Refresh"   onAction="#handleRefresh"    styleClass="icon-button"/>
+        </HBox>
+    </top>
+
+    <!-- ── Body ─────────────────────────────────────────────────────── -->
+    <center>
+        <HBox spacing="16">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <!-- ── LEFT: orders list ──────────────────── -->
+            <VBox spacing="10" prefWidth="440" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                <Label text="Live Orders" styleClass="section-header"/>
+                <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS" prefHeight="580">
+                    <columns>
+                        <TableColumn fx:id="colOrderNum" text="Order #"   prefWidth="130"/>
+                        <TableColumn fx:id="colPlatform" text="Platform"  prefWidth="80"/>
+                        <TableColumn fx:id="colCustomer" text="Customer"  prefWidth="120"/>
+                        <TableColumn fx:id="colStatus"   text="Status"    prefWidth="90"/>
+                        <TableColumn fx:id="colTotal"    text="Total"     prefWidth="75"/>
+                        <TableColumn fx:id="colTime"     text="Time"      prefWidth="55"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- ── RIGHT: order detail ───────────────── -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                <Label text="Order Detail" styleClass="section-header"/>
+
+                <!-- Info card -->
+                <GridPane hgap="16" vgap="8" styleClass="info-card">
+                    <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                    <Label text="Order #"     styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblOrderNumber" text="—"            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label text="Platform"    styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblPlatform" text="—"               GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <Label text="Customer"    styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblCustomerName" text="—"           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Phone"       styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblPhone" text="—"                  GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                    <Label text="Address"     styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label fx:id="lblAddress" text="—" wrapText="true" prefWidth="260"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
+                    <Label text="Payment"     styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Label fx:id="lblPayment" text="—"                GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <Label text="Notes"       styleClass="form-label" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                    <Label fx:id="lblNotes" text="—" wrapText="true"  GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                </GridPane>
+
+                <!-- Items table -->
+                <Label text="Ordered Items" styleClass="section-header"/>
+                <TableView fx:id="itemsTable" prefHeight="200">
+                    <columns>
+                        <TableColumn fx:id="colItemName"  text="Item"    prefWidth="300"/>
+                        <TableColumn fx:id="colItemQty"   text="Qty"     prefWidth="55"/>
+                        <TableColumn fx:id="colItemPrice" text="Amount"  prefWidth="90"/>
+                    </columns>
+                </TableView>
+
+                <!-- Totals -->
+                <GridPane hgap="24" vgap="5">
+                    <padding><Insets top="6" right="0" bottom="0" left="0"/></padding>
+                    <Label text="Items Total:"   styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblItemsTotal" text="₹0.00"            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label text="Tax:"           styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblTax"        text="₹0.00"            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Delivery:"      styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label fx:id="lblDelivery"   text="₹0.00"            GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label text="GRAND TOTAL:"   GridPane.columnIndex="0" GridPane.rowIndex="3"
+                           style="-fx-font-weight:bold;-fx-font-size:14;"/>
+                    <Label fx:id="lblGrandTotal" text="₹0.00"            GridPane.columnIndex="1" GridPane.rowIndex="3"
+                           style="-fx-font-weight:bold;-fx-font-size:14;-fx-text-fill:#0f3460;"/>
+                </GridPane>
+
+                <!-- Action buttons -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button fx:id="btnAccept"    text="✔ Accept"       onAction="#handleAccept"      styleClass="success-button" disable="true"/>
+                    <Button fx:id="btnReject"    text="✘ Reject"       onAction="#handleReject"      styleClass="danger-button"  disable="true"/>
+                    <Button fx:id="btnPreparing" text="🔥 Preparing"   onAction="#handleMarkPreparing" styleClass="secondary-button" disable="true"/>
+                    <Button fx:id="btnReady"     text="✔ Ready"        onAction="#handleMarkReady"   styleClass="primary-button" disable="true"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

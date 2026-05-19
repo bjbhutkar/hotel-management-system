@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.PlatformConfigController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+            <Label text="|" style="-fx-text-fill:rgba(255,255,255,0.35);-fx-font-size:18;-fx-padding:0 2 0 2;"/>
+            <Label text="Platform Configuration" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <padding><Insets top="10" right="16" bottom="16" left="16"/></padding>
+
+            <!-- ── Zomato ──────────────────────────────── -->
+            <Tab text="Zomato">
+                <VBox spacing="14" styleClass="content-panel">
+                    <padding><Insets top="24" right="32" bottom="24" left="32"/></padding>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <Label text="🍕" style="-fx-font-size:28;"/>
+                        <Label text="Zomato for Business" styleClass="section-header"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <CheckBox fx:id="zomatoActiveCheck" text="Enable Zomato Integration"/>
+                    </HBox>
+                    <Separator/>
+                    <GridPane hgap="16" vgap="12">
+                        <Label text="Restaurant ID *" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="zomatoRestaurantId" promptText="Your Zomato restaurant ID"
+                                   prefWidth="340" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="API Key *" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <PasswordField fx:id="zomatoApiKey" promptText="Zomato partner API key"
+                                       prefWidth="340" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="API Secret *" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <PasswordField fx:id="zomatoApiSecret" promptText="Zomato partner API secret"
+                                       prefWidth="340" styleClass="input-field" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    </GridPane>
+                    <VBox spacing="4" styleClass="info-card">
+                        <padding><Insets top="10" right="14" bottom="10" left="14"/></padding>
+                        <Label text="Webhook URL (enter in Zomato Partner Portal):" styleClass="form-label"/>
+                        <Label fx:id="zomatoWebhookUrl" text="—"
+                               style="-fx-font-family:monospace;-fx-text-fill:#0f3460;-fx-font-size:12;"/>
+                    </VBox>
+                    <HBox spacing="12">
+                        <Button text="Test Connection" onAction="#handleTestZomato" styleClass="secondary-button"/>
+                        <Button text="💾 Save"         onAction="#handleSaveZomato" styleClass="primary-button"/>
+                    </HBox>
+                    <Label fx:id="zomatoStatusLabel" text="" wrapText="true"/>
+                    <Label text="Credentials are encrypted with AES-256 before being stored locally."
+                           styleClass="login-hint"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Swiggy ──────────────────────────────── -->
+            <Tab text="Swiggy">
+                <VBox spacing="14" styleClass="content-panel">
+                    <padding><Insets top="24" right="32" bottom="24" left="32"/></padding>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <Label text="🛵" style="-fx-font-size:28;"/>
+                        <Label text="Swiggy for Restaurant" styleClass="section-header"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <CheckBox fx:id="swiggyActiveCheck" text="Enable Swiggy Integration"/>
+                    </HBox>
+                    <Separator/>
+                    <GridPane hgap="16" vgap="12">
+                        <Label text="Restaurant ID *" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="swiggyRestaurantId" promptText="Your Swiggy restaurant ID"
+                                   prefWidth="340" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="API Key *" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <PasswordField fx:id="swiggyApiKey" promptText="Swiggy partner API key"
+                                       prefWidth="340" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="API Secret *" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <PasswordField fx:id="swiggyApiSecret" promptText="Swiggy partner API secret"
+                                       prefWidth="340" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    </GridPane>
+                    <VBox spacing="4" styleClass="info-card">
+                        <padding><Insets top="10" right="14" bottom="10" left="14"/></padding>
+                        <Label text="Webhook URL (enter in Swiggy Partner Portal):" styleClass="form-label"/>
+                        <Label fx:id="swiggyWebhookUrl" text="—"
+                               style="-fx-font-family:monospace;-fx-text-fill:#0f3460;-fx-font-size:12;"/>
+                    </VBox>
+                    <HBox spacing="12">
+                        <Button text="Test Connection" onAction="#handleTestSwiggy" styleClass="secondary-button"/>
+                        <Button text="💾 Save"         onAction="#handleSaveSwiggy" styleClass="primary-button"/>
+                    </HBox>
+                    <Label fx:id="swiggyStatusLabel" text="" wrapText="true"/>
+                    <Label text="Credentials are encrypted with AES-256 before being stored locally."
+                           styleClass="login-hint"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Mock ────────────────────────────────── -->
+            <Tab text="Mock (Testing)">
+                <VBox spacing="16" styleClass="content-panel">
+                    <padding><Insets top="24" right="32" bottom="24" left="32"/></padding>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <Label text="🧪" style="-fx-font-size:28;"/>
+                        <Label text="Mock Platform — End-to-End Testing" styleClass="section-header"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <CheckBox fx:id="mockActiveCheck" text="Enable Mock Orders"/>
+                    </HBox>
+                    <Separator/>
+                    <Label fx:id="mockInfoLabel" wrapText="true" prefWidth="560"/>
+                    <VBox styleClass="info-card" spacing="6">
+                        <padding><Insets top="12" right="14" bottom="12" left="14"/></padding>
+                        <Label text="What the mock adapter does:" styleClass="form-label"/>
+                        <Label text="• Generates a realistic fake order every ~90 seconds" wrapText="true"/>
+                        <Label text="• Picks 1–3 random items from your live menu" wrapText="true"/>
+                        <Label text="• Simulates customer name, address, phone, and payment mode" wrapText="true"/>
+                        <Label text="• Fully exercises the accept/reject/status-update flow" wrapText="true"/>
+                        <Label text="• No network connection or API credentials required" wrapText="true"/>
+                    </VBox>
+                    <Button text="💾 Save" onAction="#handleSaveMock" styleClass="primary-button"/>
+                    <Label fx:id="mockStatusLabel" text="" wrapText="true"/>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </center>
+</BorderPane>

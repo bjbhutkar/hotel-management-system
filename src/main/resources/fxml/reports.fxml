@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.ReportController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+
+            <Label text="|" style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size:18; -fx-padding: 0 2 0 2;"/>
+            <Label text="Reports &amp; Analytics" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="reportTabs" tabClosingPolicy="UNAVAILABLE">
+            <padding><Insets top="10" right="16" bottom="16" left="16"/></padding>
+
+            <!-- ── Daily ─────────────────────────────── -->
+            <Tab text="Daily">
+                <VBox spacing="12">
+                    <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Select Date:" styleClass="form-label"/>
+                        <DatePicker fx:id="dailyDatePicker"/>
+                        <Button text="Generate" onAction="#generateDailyReport" styleClass="primary-button"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button text="Export PDF"   onAction="#exportDailyPdf"   styleClass="secondary-button"/>
+                        <Button text="Export Excel" onAction="#exportDailyExcel" styleClass="secondary-button"/>
+                    </HBox>
+                    <TextArea fx:id="dailyReportArea" editable="false" wrapText="false"
+                              VBox.vgrow="ALWAYS" prefHeight="520"
+                              style="-fx-font-family:'Courier New',monospace; -fx-font-size:13;"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Weekly ────────────────────────────── -->
+            <Tab text="Weekly">
+                <VBox spacing="12">
+                    <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Week Starting:" styleClass="form-label"/>
+                        <DatePicker fx:id="weeklyDatePicker"/>
+                        <Button text="Generate" onAction="#generateWeeklyReport" styleClass="primary-button"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button text="Export PDF"   onAction="#exportWeeklyPdf"   styleClass="secondary-button"/>
+                        <Button text="Export Excel" onAction="#exportWeeklyExcel" styleClass="secondary-button"/>
+                    </HBox>
+                    <TextArea fx:id="weeklyReportArea" editable="false" wrapText="false"
+                              VBox.vgrow="ALWAYS" prefHeight="520"
+                              style="-fx-font-family:'Courier New',monospace; -fx-font-size:13;"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Monthly ───────────────────────────── -->
+            <Tab text="Monthly">
+                <VBox spacing="12">
+                    <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Month:" styleClass="form-label"/>
+                        <ComboBox fx:id="monthCombo" prefWidth="130"/>
+                        <Label text="Year:" styleClass="form-label"/>
+                        <ComboBox fx:id="yearCombo"  prefWidth="90"/>
+                        <Button text="Generate" onAction="#generateMonthlyReport" styleClass="primary-button"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button text="Export PDF"   onAction="#exportMonthlyPdf"   styleClass="secondary-button"/>
+                        <Button text="Export Excel" onAction="#exportMonthlyExcel" styleClass="secondary-button"/>
+                    </HBox>
+                    <TextArea fx:id="monthlyReportArea" editable="false" wrapText="false"
+                              VBox.vgrow="ALWAYS" prefHeight="520"
+                              style="-fx-font-family:'Courier New',monospace; -fx-font-size:13;"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Cancelled Orders ──────────────────── -->
+            <Tab text="Cancelled Orders">
+                <VBox spacing="12">
+                    <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="From:" styleClass="form-label"/>
+                        <DatePicker fx:id="cancelledFromPicker"/>
+                        <Label text="To:" styleClass="form-label"/>
+                        <DatePicker fx:id="cancelledToPicker"/>
+                        <Button text="Generate" onAction="#generateCancelledReport" styleClass="primary-button"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button text="Export PDF"   onAction="#exportCancelledPdf"   styleClass="secondary-button"/>
+                        <Button text="Export Excel" onAction="#exportCancelledExcel" styleClass="secondary-button"/>
+                    </HBox>
+                    <TextArea fx:id="cancelledReportArea" editable="false" wrapText="false"
+                              VBox.vgrow="ALWAYS" prefHeight="520"
+                              style="-fx-font-family:'Courier New',monospace; -fx-font-size:13;"/>
+                </VBox>
+            </Tab>
+
+            <!-- ── Item Analytics ───────────────────── -->
+            <Tab text="Item Analytics">
+                <VBox spacing="12">
+                    <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="From:" styleClass="form-label"/>
+                        <DatePicker fx:id="itemsFromPicker"/>
+                        <Label text="To:" styleClass="form-label"/>
+                        <DatePicker fx:id="itemsToPicker"/>
+                        <Button text="Generate" onAction="#generateItemsReport" styleClass="primary-button"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button text="Export PDF"   onAction="#exportItemsPdf"   styleClass="secondary-button"/>
+                        <Button text="Export Excel" onAction="#exportItemsExcel" styleClass="secondary-button"/>
+                    </HBox>
+                    <HBox spacing="16" VBox.vgrow="ALWAYS">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label text="Top Selling Items" styleClass="section-header"/>
+                            <TableView fx:id="topItemsTable" VBox.vgrow="ALWAYS" prefHeight="460">
+                                <columns>
+                                    <TableColumn fx:id="topItemNameCol"  text="Item"       prefWidth="240"/>
+                                    <TableColumn fx:id="topItemQtyCol"   text="Units Sold" prefWidth="110"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label text="Least Selling Items" styleClass="section-header"/>
+                            <TableView fx:id="leastItemsTable" VBox.vgrow="ALWAYS" prefHeight="460">
+                                <columns>
+                                    <TableColumn fx:id="leastItemNameCol"  text="Item"       prefWidth="240"/>
+                                    <TableColumn fx:id="leastItemQtyCol"   text="Units Sold" prefWidth="110"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </Tab>
+
+            <!-- ── Revenue Chart ────────────────────── -->
+            <Tab text="Revenue Chart">
+                <VBox spacing="12">
+                    <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="From:" styleClass="form-label"/>
+                        <DatePicker fx:id="chartFromPicker"/>
+                        <Label text="To:" styleClass="form-label"/>
+                        <DatePicker fx:id="chartToPicker"/>
+                        <Button text="Generate Chart" onAction="#generateRevenueChart" styleClass="primary-button"/>
+                    </HBox>
+                    <BarChart fx:id="revenueChart" VBox.vgrow="ALWAYS" animated="false"
+                              title="Daily Revenue" prefHeight="500">
+                        <xAxis><CategoryAxis label="Date"/></xAxis>
+                        <yAxis><NumberAxis label="Revenue (₹)" lowerBound="0" autoRanging="true"/></yAxis>
+                    </BarChart>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </center>
+</BorderPane>

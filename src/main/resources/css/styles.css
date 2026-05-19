@@ -1,0 +1,297 @@
+/* ================================================================
+   Hotel Management System — Main Stylesheet
+   ================================================================ */
+
+/* ── Root ──────────────────────────────────────────────────────── */
+.root-pane {
+    -fx-background-color: #f0f2f5;
+}
+
+/* ── Login Screen ──────────────────────────────────────────────── */
+.login-bg {
+    -fx-background-color: linear-gradient(to bottom right, #1a1a2e, #16213e, #0f3460);
+}
+
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.50), 48, 0, 0, 12);
+}
+
+.login-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6c757d;
+}
+
+.login-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #adb5bd;
+}
+
+/* ── Logo Pill (top-bar logo container) ────────────────────────── */
+.logo-pill {
+    -fx-background-color: white;
+    -fx-background-radius: 9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 10, 0, 0, 2);
+}
+
+/* ── Top Bar ───────────────────────────────────────────────────── */
+.top-bar {
+    -fx-background-color: #0f3460;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+}
+
+.app-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.welcome-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #aac0d8;
+}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+.primary-button {
+    -fx-background-color: #0f3460;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-padding: 8 18;
+    -fx-cursor: hand;
+}
+.primary-button:hover { -fx-background-color: #1a4a80; }
+
+.secondary-button {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-background-radius: 7;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.secondary-button:hover { -fx-background-color: #5a6268; }
+
+.danger-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.danger-button:hover { -fx-background-color: #c0392b; }
+
+.success-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.success-button:hover { -fx-background-color: #1e8449; }
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6 12;
+}
+.icon-button:hover { -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 6; }
+
+/* ── Input Fields ──────────────────────────────────────────────── */
+.input-field {
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+    -fx-background-color: white;
+}
+.input-field:focused {
+    -fx-border-color: #0f3460;
+    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.25), 6, 0, 0, 0);
+}
+
+/* ── Labels ────────────────────────────────────────────────────── */
+.error-label {
+    -fx-text-fill: #ff6b6b;
+    -fx-font-size: 13px;
+}
+
+.form-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+}
+
+/* ── Stat Cards ────────────────────────────────────────────────── */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0, 0, 3);
+    -fx-padding: 18 20;
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #dee2e6;
+}
+.stat-card-green { -fx-border-color: #27ae60; }
+.stat-card-blue  { -fx-border-color: #2980b9; }
+.stat-card-red   { -fx-border-color: #e74c3c; }
+
+.stat-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6c757d;
+    -fx-font-weight: bold;
+}
+.stat-value {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+}
+
+/* ── Dashboard Action Cards ─────────────────────────────────────── */
+.menu-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0, 0, 3);
+    -fx-cursor: hand;
+    -fx-padding: 20;
+}
+.menu-card:hover {
+    -fx-background-color: #eef4ff;
+    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.20), 18, 0, 0, 5);
+}
+.menu-card-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+}
+.menu-card-sub {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6c757d;
+}
+
+/* ── Info Card (billing summary) ───────────────────────────────── */
+.info-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+}
+
+/* ── Tables ────────────────────────────────────────────────────── */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 8, 0, 0, 2);
+}
+.table-view .column-header-background {
+    -fx-background-color: #0f3460;
+    -fx-background-radius: 8 8 0 0;
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d0e8ff;
+}
+.table-view .table-row-cell:hover {
+    -fx-background-color: #eef4ff;
+}
+
+/* ── Content Panel ──────────────────────────────────────────────── */
+.content-panel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 2);
+}
+
+/* ── Tab Pane ──────────────────────────────────────────────────── */
+.tab-pane .tab {
+    -fx-background-color: #dee2e6;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: #0f3460;
+}
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+.tab-pane .tab-content-area {
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* ── Scroll Bar ────────────────────────────────────────────────── */
+.scroll-bar .thumb {
+    -fx-background-color: #adb5bd;
+    -fx-background-radius: 6;
+}
+
+/* ── Online Orders ──────────────────────────────────────────────── */
+.stat-card-orange { -fx-border-color: #e67e22; }
+
+.menu-card-online {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #e67e22;
+}
+
+.platform-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 8;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+}
+.badge-zomato  { -fx-background-color: #e23744; }
+.badge-swiggy  { -fx-background-color: #fc8019; }
+.badge-mock    { -fx-background-color: #8e44ad; }
+
+.status-new       { -fx-text-fill: #e74c3c; -fx-font-weight: bold; }
+.status-accepted  { -fx-text-fill: #2980b9; -fx-font-weight: bold; }
+.status-preparing { -fx-text-fill: #e67e22; -fx-font-weight: bold; }
+.status-ready     { -fx-text-fill: #27ae60; -fx-font-weight: bold; }
+.status-delivered { -fx-text-fill: #16a085; }
+.status-cancelled { -fx-text-fill: #7f8c8d; }
+
+.order-row-new {
+    -fx-background-color: rgba(231, 76, 60, 0.08);
+}
+.order-row-new:selected {
+    -fx-background-color: #fde8e6;
+}
+
+/* ── Settings & Import Cards ───────────────────────────────────── */
+.menu-card-settings {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #8e44ad;
+}
+
+.menu-card-import {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #16a085;
+}
+
+/* ── Info Card ─────────────────────────────────────────────────── */
+.info-card {
+    -fx-background-color: #eef4ff;
+    -fx-background-radius: 6;
+    -fx-border-color: #c5d9f0;
+    -fx-border-radius: 6;
+}

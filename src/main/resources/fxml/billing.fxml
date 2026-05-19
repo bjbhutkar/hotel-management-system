@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.BillingController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+
+            <Label text="|" style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size:18; -fx-padding: 0 2 0 2;"/>
+            <Label text="Billing &amp; Invoice" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="16" styleClass="content-panel">
+            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+            <!-- Summary row -->
+            <HBox spacing="30" alignment="CENTER_LEFT" styleClass="info-card">
+                <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+                <VBox spacing="4">
+                    <Label text="Order Number" styleClass="form-label"/>
+                    <Label fx:id="orderNumberLabel" text="—" styleClass="stat-value" style="-fx-font-size:16;"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Table" styleClass="form-label"/>
+                    <Label fx:id="tableNumberLabel" text="—" styleClass="stat-value" style="-fx-font-size:16;"/>
+                </VBox>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <VBox spacing="4" alignment="CENTER_RIGHT">
+                    <Label text="Total Amount" styleClass="form-label"/>
+                    <Label fx:id="totalAmountLabel" text="₹0.00"
+                           style="-fx-font-size:24; -fx-font-weight:bold; -fx-text-fill:#0f3460;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Invoice text preview -->
+            <Label text="Invoice Preview" styleClass="section-header"/>
+            <TextArea fx:id="invoiceTextArea" editable="false" wrapText="false"
+                      prefHeight="340" VBox.vgrow="ALWAYS"
+                      style="-fx-font-family:'Courier New',monospace; -fx-font-size:13;"/>
+
+            <!-- Buttons -->
+            <HBox spacing="12" alignment="CENTER_RIGHT">
+                <Button fx:id="saveButton"  text="💾 Save to File"         onAction="#handleSaveToFile" styleClass="secondary-button"/>
+                <Button fx:id="printButton" text="🖨 Print &amp; Mark Billed" onAction="#handlePrint"    styleClass="success-button"/>
+                <Button fx:id="closeButton" text="Close"                   onAction="#handleClose"      styleClass="danger-button"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

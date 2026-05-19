@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.OrderManagementController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+
+            <Label text="|" style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size:18; -fx-padding: 0 2 0 2;"/>
+            <Label text="Order Management" styleClass="app-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Button text="⟳ Refresh" onAction="#handleRefresh" styleClass="icon-button"/>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="16">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <!-- ── LEFT: active orders list ──────────────── -->
+            <VBox spacing="10" prefWidth="380" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                <Label text="Active Orders" styleClass="section-header"/>
+                <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS" prefHeight="580">
+                    <columns>
+                        <TableColumn fx:id="orderNumCol" text="Order #"  prefWidth="140"/>
+                        <TableColumn fx:id="tableNumCol" text="Table"    prefWidth="55"/>
+                        <TableColumn fx:id="statusCol"   text="Status"   prefWidth="100"/>
+                        <TableColumn fx:id="totalCol"    text="Total"    prefWidth="75"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- ── RIGHT: order panel ────────────────────── -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+
+                <Label text="New / Selected Order" styleClass="section-header"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Table No:" styleClass="form-label"/>
+                    <TextField fx:id="tableNumberField" promptText="1" prefWidth="60" styleClass="input-field"/>
+                    <Label text="Customer:" styleClass="form-label"/>
+                    <TextField fx:id="customerNameField" promptText="Optional" prefWidth="160" styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                    <Button text="＋ New Order" onAction="#handleCreateOrder" styleClass="primary-button"/>
+                </HBox>
+
+                <Separator/>
+
+                <Label text="Add Items" styleClass="section-header"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Category:" styleClass="form-label"/>
+                    <ComboBox fx:id="categoryCombo" prefWidth="150"/>
+                    <Label text="Qty:" styleClass="form-label"/>
+                    <Spinner fx:id="quantitySpinner" prefWidth="70"/>
+                    <Button fx:id="addItemButton" text="＋ Add" onAction="#handleAddItem" styleClass="primary-button"/>
+                </HBox>
+                <TextField fx:id="menuSearchField" promptText="Search menu items..." styleClass="input-field"/>
+                <ListView fx:id="menuItemsListView" prefHeight="140"/>
+
+                <Separator/>
+
+                <Label text="Order Items" styleClass="section-header"/>
+                <TableView fx:id="orderItemsTable" prefHeight="180">
+                    <columns>
+                        <TableColumn fx:id="itemNameCol"  text="Item"    prefWidth="240"/>
+                        <TableColumn fx:id="itemQtyCol"   text="Qty"     prefWidth="60"/>
+                        <TableColumn fx:id="itemPriceCol" text="Amount"  prefWidth="100"/>
+                    </columns>
+                </TableView>
+
+                <GridPane hgap="10" vgap="6">
+                    <Label text="Subtotal:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                    <Label fx:id="subtotalLabel" text="₹0.00" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Apply GST:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                    <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="6" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="applyGstCheckbox" onAction="#handleGstToggle"/>
+                        <TextField fx:id="gstRateField" promptText="0" prefWidth="55"
+                                   styleClass="input-field" disable="true"/>
+                        <Label text=" %"/>
+                    </HBox>
+
+                    <Label text="GST Amount:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label"/>
+                    <Label fx:id="taxLabel" text="₹0.00" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="TOTAL:" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                           style="-fx-font-weight:bold; -fx-font-size:15;"/>
+                    <Label fx:id="totalLabel" text="₹0.00" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                           style="-fx-font-weight:bold; -fx-font-size:15; -fx-text-fill:#0f3460;"/>
+                </GridPane>
+
+                <HBox spacing="10">
+                    <Button fx:id="removeItemButton"  text="Remove Item"    onAction="#handleRemoveItem"  styleClass="secondary-button"/>
+                    <Button fx:id="editOrderButton"   text="✏ Edit Order"   onAction="#handleEditOrder"   styleClass="secondary-button" visible="false" managed="false"/>
+                    <HBox HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="printKotButton"     text="🖨 KOT"         onAction="#handlePrintKot"     styleClass="secondary-button"/>
+                    <Button fx:id="printInvoiceButton" text="🖨 Invoice"     onAction="#handlePrintInvoice" styleClass="secondary-button"/>
+                    <Button fx:id="cancelOrderButton" text="❌ Cancel Order" onAction="#handleCancelOrder" styleClass="danger-button"/>
+                    <Button fx:id="saveOrderButton"   text="✔ Save Order"   onAction="#handleSaveOrder"   styleClass="success-button"/>
+                </HBox>
+
+                <Label fx:id="statusLabel" wrapText="true"/>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

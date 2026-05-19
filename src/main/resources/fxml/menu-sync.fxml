@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.MenuSyncController"
+            styleClass="root-pane">
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+            <Label text="|" style="-fx-text-fill:rgba(255,255,255,0.35);-fx-font-size:18;-fx-padding:0 2 0 2;"/>
+            <Label text="Menu Sync" styleClass="app-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label text="Platform:"/>
+            <ComboBox fx:id="platformCombo" prefWidth="160"/>
+            <Button text="⟳ Refresh" onAction="#handleRefresh" styleClass="icon-button"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="14">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <!-- Mapping form -->
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="content-panel">
+                <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                <Label text="Platform Item ID:" styleClass="form-label"/>
+                <TextField fx:id="platformItemIdField" promptText="e.g. ZMT-12345"
+                           prefWidth="180" styleClass="input-field"/>
+                <Label text="Platform Category ID:" styleClass="form-label"/>
+                <TextField fx:id="platformCategoryIdField" promptText="e.g. CAT-MAIN"
+                           prefWidth="160" styleClass="input-field"/>
+                <Button text="💾 Map Selected Item" onAction="#handleSaveMapping" styleClass="primary-button"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Button text="Sync All to Platform" onAction="#handleSyncAll" styleClass="success-button"/>
+            </HBox>
+
+            <!-- Status -->
+            <Label fx:id="statusLabel" text="" wrapText="true"/>
+
+            <!-- Tables -->
+            <HBox spacing="16" VBox.vgrow="ALWAYS">
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Unmapped Items" styleClass="section-header"/>
+                    <TableView fx:id="unmappedTable" VBox.vgrow="ALWAYS" prefHeight="380">
+                        <columns>
+                            <TableColumn fx:id="colUnmappedName"     text="Name"     prefWidth="220"/>
+                            <TableColumn fx:id="colUnmappedCategory" text="Category" prefWidth="120"/>
+                            <TableColumn fx:id="colUnmappedPrice"    text="Price"    prefWidth="80"/>
+                        </columns>
+                        <placeholder><Label text="All items are mapped to this platform"/></placeholder>
+                    </TableView>
+                </VBox>
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Mapped Items" styleClass="section-header"/>
+                    <TableView fx:id="mappedTable" VBox.vgrow="ALWAYS" prefHeight="380">
+                        <columns>
+                            <TableColumn fx:id="colMappedName"       text="Menu Item"      prefWidth="200"/>
+                            <TableColumn fx:id="colMappedPlatformId" text="Platform ID"    prefWidth="130"/>
+                            <TableColumn fx:id="colMappedLastSync"   text="Last Synced"    prefWidth="140"/>
+                        </columns>
+                        <placeholder><Label text="No items mapped yet — select an item from the left and add an ID"/></placeholder>
+                    </TableView>
+                </VBox>
+            </HBox>
+
+            <!-- Sync log -->
+            <Label text="Sync Log" styleClass="section-header"/>
+            <TextArea fx:id="syncLogArea" editable="false" prefHeight="100" wrapText="true"
+                      style="-fx-font-family:'Courier New',monospace;-fx-font-size:11;"/>
+        </VBox>
+    </center>
+</BorderPane>

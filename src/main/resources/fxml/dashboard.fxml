@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.DashboardController"
+            styleClass="root-pane">
+
+    <!-- ── Top Bar ──────────────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="10" right="24" bottom="10" left="20"/></padding>
+
+            <!-- Logo in white pill — equal dims, no layout overflow -->
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="6" right="16" bottom="6" left="16"/></padding>
+                <ImageView fitWidth="44" fitHeight="44" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label fx:id="welcomeLabel" styleClass="welcome-label"/>
+            <Button text="⟳  Refresh" onAction="#refreshDashboard" styleClass="icon-button"/>
+            <Button text="Logout"     onAction="#handleLogout"    styleClass="danger-button"/>
+        </HBox>
+    </top>
+
+    <!-- ── Body ─────────────────────────────────────────────────── -->
+    <center>
+        <VBox spacing="32" alignment="TOP_CENTER" styleClass="content-panel">
+            <padding><Insets top="36" right="48" bottom="36" left="48"/></padding>
+
+            <!-- Stats row -->
+            <HBox spacing="20" alignment="CENTER">
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
+                    <Label text="📋  Today's Orders" styleClass="stat-label"/>
+                    <Label fx:id="todayOrdersLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card stat-card-green" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
+                    <Label text="💰  Today's Revenue" styleClass="stat-label"/>
+                    <Label fx:id="todayRevenueLabel" text="₹0.00" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card stat-card-blue" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
+                    <Label text="🔥  Active Orders" styleClass="stat-label"/>
+                    <Label fx:id="activeOrdersLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card stat-card-red" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
+                    <Label text="❌  Cancelled Today" styleClass="stat-label"/>
+                    <Label fx:id="cancelledTodayLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+                <VBox styleClass="stat-card stat-card-orange" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
+                    <Label text="🌐  Online Orders" styleClass="stat-label"/>
+                    <Label fx:id="onlineOrdersLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+
+            <!-- Quick-action cards — row 1 -->
+            <Label text="Quick Actions" styleClass="section-header"/>
+            <HBox spacing="24" alignment="CENTER">
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="12"
+                      prefWidth="195" prefHeight="155" onMouseClicked="#openOrderManagement">
+                    <Label text="📋" style="-fx-font-size:40;"/>
+                    <Label text="Order Management" styleClass="menu-card-label"/>
+                    <Label text="Create &amp; manage orders" styleClass="menu-card-sub"/>
+                </VBox>
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="12"
+                      prefWidth="195" prefHeight="155" onMouseClicked="#openMenuManagement">
+                    <Label text="🍽" style="-fx-font-size:40;"/>
+                    <Label text="Menu Management" styleClass="menu-card-label"/>
+                    <Label text="Add / edit menu items" styleClass="menu-card-sub"/>
+                </VBox>
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="12"
+                      prefWidth="195" prefHeight="155" onMouseClicked="#openReports">
+                    <Label text="📊" style="-fx-font-size:40;"/>
+                    <Label text="Reports" styleClass="menu-card-label"/>
+                    <Label text="Sales &amp; analytics" styleClass="menu-card-sub"/>
+                </VBox>
+                <VBox styleClass="menu-card menu-card-online" alignment="CENTER" spacing="12"
+                      prefWidth="195" prefHeight="155" onMouseClicked="#openOnlineOrders">
+                    <Label text="🌐" style="-fx-font-size:40;"/>
+                    <Label text="Online Orders" styleClass="menu-card-label"/>
+                    <Label text="Zomato &amp; Swiggy" styleClass="menu-card-sub"/>
+                </VBox>
+                <VBox styleClass="menu-card menu-card-settings" alignment="CENTER" spacing="12"
+                      prefWidth="195" prefHeight="155" onMouseClicked="#openSettings">
+                    <Label text="⚙" style="-fx-font-size:40;"/>
+                    <Label text="Settings" styleClass="menu-card-label"/>
+                    <Label text="Restaurant profile" styleClass="menu-card-sub"/>
+                </VBox>
+                <VBox styleClass="menu-card menu-card-import" alignment="CENTER" spacing="12"
+                      prefWidth="195" prefHeight="155" onMouseClicked="#openImportData">
+                    <Label text="📥" style="-fx-font-size:40;"/>
+                    <Label text="Import Data" styleClass="menu-card-label"/>
+                    <Label text="Excel menu &amp; orders" styleClass="menu-card-sub"/>
+                </VBox>
+            </HBox>
+
+            <!-- Brand logo — centred below the action cards, equal dims, transparent background -->
+            <VBox VBox.vgrow="ALWAYS" alignment="BOTTOM_CENTER">
+                <ImageView fitWidth="230" fitHeight="230" preserveRatio="true"
+                           style="-fx-opacity: 0.95;">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

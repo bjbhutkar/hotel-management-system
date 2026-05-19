@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ui.SettingsController"
+            styleClass="root-pane">
+
+    <!-- ── Top Bar ──────────────────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="10" right="20" bottom="10" left="16"/></padding>
+            <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
+            <HBox styleClass="logo-pill" alignment="CENTER">
+                <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image><Image url="@/images/rasoi.png"/></image>
+                </ImageView>
+            </HBox>
+            <Label text="|" style="-fx-text-fill:rgba(255,255,255,0.35);-fx-font-size:18;-fx-padding:0 2 0 2;"/>
+            <Label text="Restaurant Settings" styleClass="app-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label fx:id="statusLabel" wrapText="true" maxWidth="400"
+                   style="-fx-font-size:12;-fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+
+    <!-- ── Body ─────────────────────────────────────────────────────── -->
+    <center>
+        <HBox spacing="14">
+            <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+
+            <!-- ── Left: settings tabs ─────────────────────────────── -->
+            <TabPane tabClosingPolicy="UNAVAILABLE" prefWidth="560" HBox.hgrow="SOMETIMES">
+
+                <!-- Business Info Tab -->
+                <Tab text="Business Info">
+                    <ScrollPane fitToWidth="true" fitToHeight="false"
+                                style="-fx-background-color:transparent;">
+                        <VBox spacing="16" styleClass="content-panel">
+                            <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="🏢" style="-fx-font-size:24;"/>
+                                <Label text="Restaurant Information" styleClass="section-header"/>
+                            </HBox>
+                            <Separator/>
+
+                            <GridPane hgap="16" vgap="12">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="130" prefWidth="130"/>
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+                                </columnConstraints>
+
+                                <Label text="Restaurant Name *" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="restaurantNameField" promptText="e.g. Rasoi Restaurant"
+                                           styleClass="input-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Address" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                       GridPane.valignment="TOP" style="-fx-padding:4 0 0 0;"/>
+                                <TextArea fx:id="addressArea" promptText="Full address (shown on invoices)"
+                                          prefHeight="64" wrapText="true"
+                                          styleClass="input-field"
+                                          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Phone" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="phoneField" promptText="+91 98765 43210"
+                                           styleClass="input-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Email" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <TextField fx:id="emailField" promptText="contact@restaurant.com"
+                                           styleClass="input-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="GST Number" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <TextField fx:id="gstField" promptText="22AAAAA0000A1Z5"
+                                           styleClass="input-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                                <Label text="FSSAI License" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <TextField fx:id="fssaiField" promptText="10000000000000"
+                                           styleClass="input-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                                <Label text="Website" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                                <TextField fx:id="websiteField" promptText="https://www.restaurant.com"
+                                           styleClass="input-field"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                            </GridPane>
+                        </VBox>
+                    </ScrollPane>
+                </Tab>
+
+                <!-- Tax & Invoice Tab -->
+                <Tab text="Tax &amp; Invoice">
+                    <VBox spacing="16" styleClass="content-panel">
+                        <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🧾" style="-fx-font-size:24;"/>
+                            <Label text="Tax &amp; Invoice Configuration" styleClass="section-header"/>
+                        </HBox>
+                        <Separator/>
+
+                        <GridPane hgap="16" vgap="14">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="150" prefWidth="150"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="180"/>
+                            </columnConstraints>
+
+                            <Label text="Invoice Prefix *" styleClass="form-label"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <TextField fx:id="invoicePrefixField" promptText="INV"
+                                           prefWidth="120" styleClass="input-field"/>
+                                <Label text="Appears before the order number, e.g. INV-ORD-001"
+                                       styleClass="login-hint"/>
+                            </VBox>
+
+                            <Label text="Currency Symbol *" styleClass="form-label"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <TextField fx:id="currencySymbolField" promptText="₹"
+                                           prefWidth="80" styleClass="input-field"/>
+                                <Label text="Displayed before all amounts on invoices"
+                                       styleClass="login-hint"/>
+                            </VBox>
+
+                            <Label text="Default Tax %" styleClass="form-label"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <TextField fx:id="defaultTaxField" promptText="18"
+                                           prefWidth="80" styleClass="input-field"/>
+                                <Label text="Used as the default GST rate for new orders"
+                                       styleClass="login-hint"/>
+                            </VBox>
+                        </GridPane>
+
+                        <VBox styleClass="info-card" spacing="6">
+                            <padding><Insets top="12" right="14" bottom="12" left="14"/></padding>
+                            <Label text="ℹ Invoice Numbering" styleClass="form-label"/>
+                            <Label text="Invoice numbers are formatted as {PREFIX}-{ORDER_NUMBER}."
+                                   wrapText="true" styleClass="login-hint"/>
+                            <Label text="Example: INV-ORD-20260515-001" styleClass="login-hint"/>
+                        </VBox>
+                    </VBox>
+                </Tab>
+
+                <!-- Branding Tab -->
+                <Tab text="Branding">
+                    <VBox spacing="16" styleClass="content-panel">
+                        <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🎨" style="-fx-font-size:24;"/>
+                            <Label text="Branding &amp; Invoice Messages" styleClass="section-header"/>
+                        </HBox>
+                        <Separator/>
+
+                        <!-- Logo picker -->
+                        <VBox spacing="8">
+                            <Label text="Restaurant Logo" styleClass="form-label"/>
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <StackPane style="-fx-background-color:#f0f0f0;-fx-border-color:#dee2e6;
+                                                  -fx-border-radius:6;-fx-background-radius:6;"
+                                           prefWidth="90" prefHeight="90">
+                                    <ImageView fx:id="logoPreview" fitWidth="80" fitHeight="80"
+                                               preserveRatio="true"/>
+                                </StackPane>
+                                <VBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label fx:id="logoPathLabel" text="No logo selected"
+                                           style="-fx-font-size:12;-fx-text-fill:#6c757d;"/>
+                                    <HBox spacing="8">
+                                        <Button text="Choose Logo" onAction="#handleChooseLogo"
+                                                styleClass="secondary-button"/>
+                                        <Button text="Remove" onAction="#handleRemoveLogo"
+                                                styleClass="danger-button"/>
+                                    </HBox>
+                                    <Label text="PNG / JPG recommended. Will appear on printed invoices."
+                                           styleClass="login-hint" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <Separator/>
+
+                        <!-- Printer -->
+                        <VBox spacing="8">
+                            <Label text="Receipt Printer" styleClass="form-label"/>
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Label fx:id="printerNameLabel"
+                                       text="Not set — will be prompted on first print"
+                                       style="-fx-font-size:12;-fx-text-fill:#495057;"/>
+                            </HBox>
+                            <HBox spacing="8">
+                                <Button text="🖨 Change Printer" onAction="#handleChangePrinter"
+                                        styleClass="secondary-button"/>
+                                <Label text="Printer selection is remembered across app restarts."
+                                       styleClass="login-hint" style="-fx-padding:4 0 0 0;"/>
+                            </HBox>
+                        </VBox>
+
+                        <Separator/>
+
+                        <!-- Messages -->
+                        <GridPane hgap="16" vgap="14">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="140" prefWidth="140"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+                            </columnConstraints>
+
+                            <Label text="Thank-You Message" styleClass="form-label"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <TextField fx:id="thankYouField"
+                                           promptText="Thank you for dining with us!"
+                                           styleClass="input-field"/>
+                                <Label text="Printed on the last line of every invoice"
+                                       styleClass="login-hint"/>
+                            </VBox>
+
+                            <Label text="Footer Message" styleClass="form-label"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <TextField fx:id="footerMessageField"
+                                           promptText="Powered by Rasoi POS"
+                                           styleClass="input-field"/>
+                                <Label text="Shown below the thank-you line"
+                                       styleClass="login-hint"/>
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                </Tab>
+
+            </TabPane>
+
+            <!-- ── Right: invoice preview ───────────────────────────── -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="content-panel">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Label text="🧾" style="-fx-font-size:18;"/>
+                    <Label text="Invoice Preview" styleClass="section-header"/>
+                    <HBox HBox.hgrow="ALWAYS"/>
+                    <Button text="⟳ Refresh Preview" onAction="#handlePreviewInvoice"
+                            styleClass="icon-button"/>
+                </HBox>
+                <Separator/>
+
+                <TextArea fx:id="invoicePreviewArea" editable="false" wrapText="false"
+                          VBox.vgrow="ALWAYS"
+                          style="-fx-font-family:'Courier New';-fx-font-size:11;
+                                 -fx-background-color:#f8f9fa;-fx-border-color:#dee2e6;
+                                 -fx-border-radius:4;"/>
+
+                <Separator/>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="💾 Save Settings" onAction="#handleSave"
+                            styleClass="success-button"
+                            style="-fx-font-size:14;-fx-padding:10 24;"/>
+                </HBox>
+            </VBox>
+
+        </HBox>
+    </center>
+</BorderPane>
