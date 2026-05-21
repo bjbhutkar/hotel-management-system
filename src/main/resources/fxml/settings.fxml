@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +18,8 @@
             <Button text="← Back" onAction="#handleBack" styleClass="icon-button"/>
             <HBox styleClass="logo-pill" alignment="CENTER">
                 <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
-                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                <ImageView fitWidth="52" fitHeight="52" preserveRatio="true">
+                    <viewport><Rectangle2D minX="180" minY="60" width="660" height="660"/></viewport>
                     <image><Image url="@/images/rasoi.png"/></image>
                 </ImageView>
             </HBox>
@@ -31,11 +33,11 @@
 
     <!-- ── Body ─────────────────────────────────────────────────────── -->
     <center>
-        <HBox spacing="14">
+        <SplitPane dividerPositions="0.55">
             <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
 
             <!-- ── Left: settings tabs ─────────────────────────────── -->
-            <TabPane tabClosingPolicy="UNAVAILABLE" prefWidth="560" HBox.hgrow="SOMETIMES">
+            <TabPane tabClosingPolicy="UNAVAILABLE" minWidth="500">
 
                 <!-- Business Info Tab -->
                 <Tab text="Business Info">
@@ -245,10 +247,168 @@
                     </VBox>
                 </Tab>
 
+
+                <!-- Auto Backup Tab -->
+                <Tab text="Auto Backup">
+                    <ScrollPane fitToWidth="true" fitToHeight="false"
+                                style="-fx-background-color:transparent;">
+                        <VBox spacing="16" styleClass="content-panel">
+                            <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="💾" style="-fx-font-size:24;"/>
+                                <Label text="Automatic Database Backup" styleClass="section-header"/>
+                            </HBox>
+                            <Separator/>
+
+                            <!-- Enable toggle -->
+                            <CheckBox fx:id="backupEnabledCheck" text="Enable automatic backup"
+                                      style="-fx-font-size:13;-fx-font-weight:bold;"/>
+
+                            <Separator/>
+
+                            <!-- Frequency & Schedule -->
+                            <GridPane hgap="16" vgap="14">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="150" prefWidth="150"/>
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+                                </columnConstraints>
+
+                                <Label text="Backup Frequency *" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <ComboBox fx:id="backupFrequencyCombo" prefWidth="200"/>
+                                    <Label text="How often the database should be backed up automatically"
+                                           styleClass="login-hint"/>
+                                </VBox>
+
+                                <Label text="Backup Folder *" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <HBox spacing="8">
+                                        <TextField fx:id="backupDirField"
+                                                   promptText="e.g. C:\Users\...\Backups"
+                                                   styleClass="input-field" HBox.hgrow="ALWAYS"/>
+                                        <Button text="Browse…" onAction="#handleChooseBackupDir"
+                                                styleClass="secondary-button"/>
+                                    </HBox>
+                                    <Label text="All backup .db files will be saved here"
+                                           styleClass="login-hint"/>
+                                </VBox>
+
+                                <Label text="Keep Last N Backups" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <TextField fx:id="retainCountField" promptText="10"
+                                               prefWidth="80" styleClass="input-field"/>
+                                    <Label text="Older backups beyond this count are deleted automatically"
+                                           styleClass="login-hint"/>
+                                </VBox>
+                            </GridPane>
+
+                            <Separator/>
+
+                            <!-- Status info -->
+                            <GridPane hgap="16" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="150" prefWidth="150"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Last Backup" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label fx:id="lastBackupLabel" text="Never"
+                                       style="-fx-font-size:12;-fx-text-fill:#495057;"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Next Backup" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label fx:id="nextBackupLabel" text="Not scheduled"
+                                       style="-fx-font-size:12;-fx-text-fill:#495057;"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            </GridPane>
+
+                            <Separator/>
+
+                            <!-- Action buttons -->
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Button text="💾  Save Backup Settings" onAction="#handleSaveBackup"
+                                        styleClass="success-button"/>
+                                <Button text="📦  Backup Now" onAction="#handleManualBackup"
+                                        styleClass="primary-button"/>
+                                <Button text="🔄  Restore from Backup" onAction="#handleRestoreBackup"
+                                        styleClass="secondary-button"/>
+                            </HBox>
+
+                            <VBox styleClass="info-card" spacing="6">
+                                <padding><Insets top="12" right="14" bottom="12" left="14"/></padding>
+                                <Label text="ℹ Like WhatsApp Backup" styleClass="form-label"/>
+                                <Label wrapText="true" styleClass="login-hint"
+                                       text="Daily: backs up every 24 h. Weekly: every 7 days. Monthly: every 30 days. Every 6 Months / Annually work similarly. The scheduler checks once per hour, so backups may run slightly after the due time."/>
+                            </VBox>
+
+                        </VBox>
+                    </ScrollPane>
+                </Tab>
+
+                <!-- Data Management Tab -->
+                <Tab text="Data Mgmt">
+                    <ScrollPane fitToWidth="true" fitToHeight="false"
+                                style="-fx-background-color:transparent;">
+                        <VBox spacing="16" styleClass="content-panel">
+                            <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="🗑" style="-fx-font-size:24;"/>
+                                <Label text="Cancelled Order Cleanup" styleClass="section-header"/>
+                            </HBox>
+                            <Separator/>
+
+                            <GridPane hgap="16" vgap="12">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="160" prefWidth="160"/>
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+                                </columnConstraints>
+
+                                <Label text="Delete orders older than:" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <ComboBox fx:id="purgeThresholdCombo" prefWidth="180"
+                                          GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Orders to be deleted:" styleClass="form-label"
+                                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <HBox spacing="10" alignment="CENTER_LEFT"
+                                      GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Label fx:id="purgePreviewLabel" text="—"
+                                           style="-fx-font-size:14;-fx-font-weight:bold;"/>
+                                    <Button text="Preview Count" onAction="#handlePreviewPurge"
+                                            styleClass="secondary-button"/>
+                                </HBox>
+                            </GridPane>
+
+                            <VBox styleClass="info-card" spacing="6">
+                                <padding><Insets top="12" right="14" bottom="12" left="14"/></padding>
+                                <Label text="⚠ Important" styleClass="form-label"/>
+                                <Label wrapText="true" styleClass="login-hint"
+                                       text="This permanently deletes cancelled orders and all their items from the database. BILLED, PENDING, and active orders are never affected. This action cannot be undone — take a backup first if needed."/>
+                            </VBox>
+
+                            <HBox spacing="12">
+                                <Button text="🗑 Purge Now" onAction="#handlePurgeCancelled"
+                                        styleClass="danger-button"
+                                        style="-fx-font-size:13;-fx-padding:9 22;"/>
+                            </HBox>
+
+                            <Label fx:id="purgeStatusLabel" text="" wrapText="true"/>
+
+                        </VBox>
+                    </ScrollPane>
+                </Tab>
+
             </TabPane>
 
             <!-- ── Right: invoice preview ───────────────────────────── -->
-            <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="content-panel">
+            <VBox spacing="10" styleClass="content-panel" minWidth="300">
                 <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
 
                 <HBox spacing="8" alignment="CENTER_LEFT">
@@ -274,6 +434,6 @@
                 </HBox>
             </VBox>
 
-        </HBox>
+        </SplitPane>
     </center>
 </BorderPane>

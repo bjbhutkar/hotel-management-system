@@ -172,3 +172,52 @@ TOTAL AMOUNT:                        756.00
 ## 📄 License
 
 MIT License — free for commercial and personal use.
+● All three files are in place. Here's how to use it:                                                                                                                                                                            
+
+  ---
+  Developer (you) — to produce the installer:
+
+  1. Install Inno Setup 6 from https://jrsoftware.org/isdl.php (one-time)
+  2. Double-click installer\build-installer.bat                                                                                                                                                                
+
+  That script will:
+  - Run mvn clean package to build the JAR
+  - Download Eclipse Temurin 21 JRE (~130 MB) into installer\jre\ on first run (cached for future builds)
+  - Convert rasoi.png → rasoi.ico                                                                                                                                                                                                
+  - Compile everything into dist\RasoiSetup.exe                                                                                                                                                                                  
+
+  ---
+  Customer — to install:
+
+  1. Double-click RasoiSetup.exe                                                                                                                                                                                                 
+  2. Click Next / Next / Finish
+  3. Launch from desktop shortcut
+
+  No Java installation, no PATH setup, no errors. The app runs from the JRE bundled inside C:\Program Files\Rasoi\jre\. The database is stored separately at %USERPROFILE%\hotel_management\ so it survives reinstalls/updates.  
+
+  ---
+  Installer size estimate:
+
+  1. Install Inno Setup 6 from https://jrsoftware.org/isdl.php (one-time)
+  2. Double-click installer\build-installer.bat                                                                                                                                                                                  
+
+  That script will:
+  - Run mvn clean package to build the JAR
+  - Download Eclipse Temurin 21 JRE (~130 MB) into installer\jre\ on first run (cached for future builds)
+  - Convert rasoi.png → rasoi.ico                                                                                                                                                                                                
+  - Compile everything into dist\RasoiSetup.exe                                                                                                                                                                                  
+
+  ---
+  Customer — to install:
+
+  1. Double-click RasoiSetup.exe
+  2. Click Next / Next / Finish
+  3. Launch from desktop shortcut
+
+  No Java installation, no PATH setup, no errors. The app runs from the JRE bundled inside C:\Program Files\Rasoi\jre\. The database is stored separately at %USERPROFILE%\hotel_management\ so it survives reinstalls/updates.  
+
+  ---
+  Installer size estimate:
+  - Fat JAR: ~80–120 MB
+  - JRE: ~130 MB uncompressed → ~60 MB compressed with LZMA
+  - Total installer: ~150–180 MB

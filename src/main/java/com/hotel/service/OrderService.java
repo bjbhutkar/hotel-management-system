@@ -155,6 +155,22 @@ public class OrderService {
         return orderRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(start, end);
     }
 
+    @Transactional(readOnly = true)
+    public long countPurgeable(int olderThanDays) {
+        LocalDateTime cutoff = LocalDateTime.now().minusDays(olderThanDays);
+        return orderRepository.countByStatusAndCreatedAtBefore(OrderStatus.CANCELLED, cutoff);
+    }
+
+    @Transactional
+    public int purgeCancelledOrders(int olderThanDays) {
+        LocalDateTime cutoff = LocalDateTime.now().minusDays(olderThanDays);
+        List<Order> toDelete = orderRepository.findByStatusAndCreatedAtBefore(
+                OrderStatus.CANCELLED, cutoff);
+        orderRepository.deleteAll(toDelete);
+        log.info("Purged {} cancelled orders older than {} days", toDelete.size(), olderThanDays);
+        return toDelete.size();
+    }
+
     // -----------------------------------------------------------------------
     // Helpers
     // -----------------------------------------------------------------------

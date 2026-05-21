@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,8 +17,14 @@
 
         <!-- Both dims set equal — logo is 1254×1254 (1:1), no dead whitespace, no layout overflow -->
         <ImageView fitWidth="240" fitHeight="240" preserveRatio="true">
+            <viewport><Rectangle2D minX="180" minY="60" width="660" height="660"/></viewport>
             <image><Image url="@/images/rasoi.png"/></image>
         </ImageView>
+
+        <Label text="Simplifying Restaurant Operations"
+               styleClass="login-tagline"
+               alignment="CENTER"
+               maxWidth="Infinity"/>
 
         <Label text="Sign in to your account" styleClass="login-subtitle"/>
 

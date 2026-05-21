@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,12 +14,12 @@
     <!-- ── Top Bar ──────────────────────────────────────────────── -->
     <top>
         <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="16">
-            <padding><Insets top="10" right="24" bottom="10" left="20"/></padding>
+            <padding><Insets top="12" right="24" bottom="12" left="20"/></padding>
 
-            <!-- Logo in white pill — equal dims, no layout overflow -->
             <HBox styleClass="logo-pill" alignment="CENTER">
                 <padding><Insets top="6" right="16" bottom="6" left="16"/></padding>
-                <ImageView fitWidth="44" fitHeight="44" preserveRatio="true">
+                <ImageView fitWidth="52" fitHeight="52" preserveRatio="true">
+                    <viewport><Rectangle2D minX="180" minY="60" width="660" height="660"/></viewport>
                     <image><Image url="@/images/rasoi.png"/></image>
                 </ImageView>
             </HBox>
@@ -32,81 +33,179 @@
 
     <!-- ── Body ─────────────────────────────────────────────────── -->
     <center>
-        <VBox spacing="32" alignment="TOP_CENTER" styleClass="content-panel">
-            <padding><Insets top="36" right="48" bottom="36" left="48"/></padding>
+        <VBox spacing="28" alignment="TOP_CENTER" styleClass="content-panel">
+            <padding><Insets top="32" right="48" bottom="32" left="48"/></padding>
 
-            <!-- Stats row -->
-            <HBox spacing="20" alignment="CENTER">
-                <VBox styleClass="stat-card" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
-                    <Label text="📋  Today's Orders" styleClass="stat-label"/>
-                    <Label fx:id="todayOrdersLabel" text="0" styleClass="stat-value"/>
+            <!-- ── Stats Row ─────────────────────────────────────── -->
+            <HBox spacing="18" alignment="CENTER">
+
+                <!-- Today's Orders -->
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="5"
+                      prefWidth="212" prefHeight="120"
+                      style="-fx-border-color:#e17055;-fx-border-width:0 0 4 0;">
+                    <StackPane prefWidth="48" prefHeight="48" maxWidth="48" maxHeight="48"
+                               style="-fx-background-color:#e17055;-fx-background-radius:14;-fx-effect:dropshadow(gaussian,rgba(225,112,85,0.35),8,0,0,2);">
+                        <Label text="🧾" style="-fx-font-size:22;"/>
+                    </StackPane>
+                    <Label fx:id="todayOrdersLabel" text="0" styleClass="stat-value" style="-fx-font-size:28;"/>
+                    <Label text="Today's Orders" styleClass="stat-label"/>
                 </VBox>
-                <VBox styleClass="stat-card stat-card-green" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
-                    <Label text="💰  Today's Revenue" styleClass="stat-label"/>
-                    <Label fx:id="todayRevenueLabel" text="₹0.00" styleClass="stat-value"/>
+
+                <!-- Today's Revenue -->
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="5"
+                      prefWidth="212" prefHeight="120"
+                      style="-fx-border-color:#00b894;-fx-border-width:0 0 4 0;">
+                    <StackPane prefWidth="48" prefHeight="48" maxWidth="48" maxHeight="48"
+                               style="-fx-background-color:#00b894;-fx-background-radius:14;-fx-effect:dropshadow(gaussian,rgba(0,184,148,0.35),8,0,0,2);">
+                        <Label text="💰" style="-fx-font-size:22;"/>
+                    </StackPane>
+                    <Label fx:id="todayRevenueLabel" text="₹0.00" styleClass="stat-value" style="-fx-font-size:20;"/>
+                    <Label text="Today's Revenue" styleClass="stat-label"/>
                 </VBox>
-                <VBox styleClass="stat-card stat-card-blue" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
-                    <Label text="🔥  Active Orders" styleClass="stat-label"/>
-                    <Label fx:id="activeOrdersLabel" text="0" styleClass="stat-value"/>
+
+                <!-- Active Orders -->
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="5"
+                      prefWidth="212" prefHeight="120"
+                      style="-fx-border-color:#0984e3;-fx-border-width:0 0 4 0;">
+                    <StackPane prefWidth="48" prefHeight="48" maxWidth="48" maxHeight="48"
+                               style="-fx-background-color:#0984e3;-fx-background-radius:14;-fx-effect:dropshadow(gaussian,rgba(9,132,227,0.35),8,0,0,2);">
+                        <Label text="🔥" style="-fx-font-size:22;"/>
+                    </StackPane>
+                    <Label fx:id="activeOrdersLabel" text="0" styleClass="stat-value" style="-fx-font-size:28;"/>
+                    <Label text="Active Orders" styleClass="stat-label"/>
                 </VBox>
-                <VBox styleClass="stat-card stat-card-red" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
-                    <Label text="❌  Cancelled Today" styleClass="stat-label"/>
-                    <Label fx:id="cancelledTodayLabel" text="0" styleClass="stat-value"/>
+
+                <!-- Cancelled Today -->
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="5"
+                      prefWidth="212" prefHeight="120"
+                      style="-fx-border-color:#d63031;-fx-border-width:0 0 4 0;">
+                    <StackPane prefWidth="48" prefHeight="48" maxWidth="48" maxHeight="48"
+                               style="-fx-background-color:#d63031;-fx-background-radius:14;-fx-effect:dropshadow(gaussian,rgba(214,48,49,0.35),8,0,0,2);">
+                        <Label text="🚫" style="-fx-font-size:22;"/>
+                    </StackPane>
+                    <Label fx:id="cancelledTodayLabel" text="0" styleClass="stat-value" style="-fx-font-size:28;"/>
+                    <Label text="Cancelled Today" styleClass="stat-label"/>
                 </VBox>
-                <VBox styleClass="stat-card stat-card-orange" alignment="CENTER" spacing="8" prefWidth="230" prefHeight="115">
-                    <Label text="🌐  Online Orders" styleClass="stat-label"/>
-                    <Label fx:id="onlineOrdersLabel" text="0" styleClass="stat-value"/>
+
+                <!-- Online Orders -->
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="5"
+                      prefWidth="212" prefHeight="120"
+                      style="-fx-border-color:#6c5ce7;-fx-border-width:0 0 4 0;">
+                    <StackPane prefWidth="48" prefHeight="48" maxWidth="48" maxHeight="48"
+                               style="-fx-background-color:#6c5ce7;-fx-background-radius:14;-fx-effect:dropshadow(gaussian,rgba(108,92,231,0.35),8,0,0,2);">
+                        <Label text="🛵" style="-fx-font-size:22;"/>
+                    </StackPane>
+                    <Label fx:id="onlineOrdersLabel" text="0" styleClass="stat-value" style="-fx-font-size:28;"/>
+                    <Label text="Online Orders" styleClass="stat-label"/>
                 </VBox>
+
             </HBox>
 
-            <!-- Quick-action cards — row 1 -->
-            <Label text="Quick Actions" styleClass="section-header"/>
-            <HBox spacing="24" alignment="CENTER">
-                <VBox styleClass="menu-card" alignment="CENTER" spacing="12"
-                      prefWidth="195" prefHeight="155" onMouseClicked="#openOrderManagement">
-                    <Label text="📋" style="-fx-font-size:40;"/>
+            <!-- ── Section Header ────────────────────────────────── -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <StackPane prefWidth="5" prefHeight="24" maxWidth="5" maxHeight="24"
+                           style="-fx-background-color:#0f3460;-fx-background-radius:3;"/>
+                <Label text="Quick Actions" styleClass="section-header"/>
+            </HBox>
+
+            <!-- ── Action Cards ──────────────────────────────────── -->
+            <HBox spacing="20" alignment="CENTER">
+
+                <!-- Order Management — coral red -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#e17055;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openOrderManagement">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#e17055;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(225,112,85,0.50),14,0,0,4);">
+                        <Label text="🧾" style="-fx-font-size:30;"/>
+                    </StackPane>
                     <Label text="Order Management" styleClass="menu-card-label"/>
                     <Label text="Create &amp; manage orders" styleClass="menu-card-sub"/>
                 </VBox>
-                <VBox styleClass="menu-card" alignment="CENTER" spacing="12"
-                      prefWidth="195" prefHeight="155" onMouseClicked="#openMenuManagement">
-                    <Label text="🍽" style="-fx-font-size:40;"/>
+
+                <!-- Menu Management — emerald green -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#00b894;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openMenuManagement">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#00b894;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(0,184,148,0.50),14,0,0,4);">
+                        <Label text="🍛" style="-fx-font-size:30;"/>
+                    </StackPane>
                     <Label text="Menu Management" styleClass="menu-card-label"/>
                     <Label text="Add / edit menu items" styleClass="menu-card-sub"/>
                 </VBox>
-                <VBox styleClass="menu-card" alignment="CENTER" spacing="12"
-                      prefWidth="195" prefHeight="155" onMouseClicked="#openReports">
-                    <Label text="📊" style="-fx-font-size:40;"/>
+
+                <!-- Reports — electric blue -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#0984e3;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openReports">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#0984e3;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(9,132,227,0.50),14,0,0,4);">
+                        <Label text="📈" style="-fx-font-size:30;"/>
+                    </StackPane>
                     <Label text="Reports" styleClass="menu-card-label"/>
                     <Label text="Sales &amp; analytics" styleClass="menu-card-sub"/>
                 </VBox>
-                <VBox styleClass="menu-card menu-card-online" alignment="CENTER" spacing="12"
-                      prefWidth="195" prefHeight="155" onMouseClicked="#openOnlineOrders">
-                    <Label text="🌐" style="-fx-font-size:40;"/>
+
+                <!-- Online Orders — amber orange -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#e67e22;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openOnlineOrders">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#e67e22;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(230,126,34,0.50),14,0,0,4);">
+                        <Label text="🛵" style="-fx-font-size:30;"/>
+                    </StackPane>
                     <Label text="Online Orders" styleClass="menu-card-label"/>
                     <Label text="Zomato &amp; Swiggy" styleClass="menu-card-sub"/>
                 </VBox>
-                <VBox styleClass="menu-card menu-card-settings" alignment="CENTER" spacing="12"
-                      prefWidth="195" prefHeight="155" onMouseClicked="#openSettings">
-                    <Label text="⚙" style="-fx-font-size:40;"/>
+
+                <!-- Settings — violet -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#6c5ce7;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openSettings">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#6c5ce7;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(108,92,231,0.50),14,0,0,4);">
+                        <Label text="⚙" style="-fx-font-size:30;"/>
+                    </StackPane>
                     <Label text="Settings" styleClass="menu-card-label"/>
                     <Label text="Restaurant profile" styleClass="menu-card-sub"/>
                 </VBox>
-                <VBox styleClass="menu-card menu-card-import" alignment="CENTER" spacing="12"
-                      prefWidth="195" prefHeight="155" onMouseClicked="#openImportData">
-                    <Label text="📥" style="-fx-font-size:40;"/>
+
+                <!-- Import Data — cyan -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#00cec9;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openImportData">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#00cec9;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(0,206,201,0.50),14,0,0,4);">
+                        <Label text="📥" style="-fx-font-size:30;"/>
+                    </StackPane>
                     <Label text="Import Data" styleClass="menu-card-label"/>
                     <Label text="Excel menu &amp; orders" styleClass="menu-card-sub"/>
                 </VBox>
+
+                <!-- Accounting Export — golden yellow -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="10"
+                      style="-fx-border-color:#f9a825;-fx-border-width:0 0 4 0;"
+                      prefWidth="175" prefHeight="168" onMouseClicked="#openAccountingExport">
+                    <StackPane prefWidth="64" prefHeight="64" maxWidth="64" maxHeight="64"
+                               style="-fx-background-color:#f9a825;-fx-background-radius:20;-fx-effect:dropshadow(gaussian,rgba(249,168,37,0.50),14,0,0,4);">
+                        <Label text="💼" style="-fx-font-size:30;"/>
+                    </StackPane>
+                    <Label text="Accounting Export" styleClass="menu-card-label"/>
+                    <Label text="Excel &amp; Tally XML" styleClass="menu-card-sub"/>
+                </VBox>
+
             </HBox>
 
-            <!-- Brand logo — centred below the action cards, equal dims, transparent background -->
+            <!-- ── Brand logo ────────────────────────────────────── -->
             <VBox VBox.vgrow="ALWAYS" alignment="BOTTOM_CENTER">
-                <ImageView fitWidth="230" fitHeight="230" preserveRatio="true"
-                           style="-fx-opacity: 0.95;">
+                <ImageView fitWidth="180" fitHeight="180" preserveRatio="true"
+                           style="-fx-opacity:0.55;">
+                    <viewport><Rectangle2D minX="180" minY="60" width="660" height="660"/></viewport>
                     <image><Image url="@/images/rasoi.png"/></image>
                 </ImageView>
             </VBox>
+
         </VBox>
     </center>
 </BorderPane>

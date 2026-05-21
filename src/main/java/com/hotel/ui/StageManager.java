@@ -71,6 +71,10 @@ public class StageManager {
         switchScene("/fxml/import-data.fxml", "Rasoi — Import Data", 1000, 760, true);
     }
 
+    public void showAccountingExport() throws IOException {
+        switchScene("/fxml/accounting-export.fxml", "Rasoi — Accounting Export", 1280, 780, true);
+    }
+
     public void showBilling(Long orderId) throws IOException {
         FXMLLoader loader = createLoader("/fxml/billing.fxml");
         Stage billingStage = new Stage();

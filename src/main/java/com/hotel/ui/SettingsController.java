@@ -1,13 +1,18 @@
 package com.hotel.ui;
 
+import com.hotel.entity.BackupConfig;
+import com.hotel.entity.BackupFrequency;
 import com.hotel.entity.RestaurantConfig;
+import com.hotel.service.AutoBackupService;
 import com.hotel.service.BillingService;
+import com.hotel.service.OrderService;
 import com.hotel.service.PrintService;
 import com.hotel.service.RestaurantConfigService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Component
@@ -28,6 +34,10 @@ public class SettingsController {
     private final BillingService          billingService;
     private final PrintService            printService;
     private final StageManager            stageManager;
+    private final AutoBackupService       autoBackupService;
+    private final OrderService            orderService;
+
+    private static final DateTimeFormatter DT_FMT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     // ── Business Info ─────────────────────────────────────────────────────────
     @FXML private TextField  restaurantNameField;
@@ -56,12 +66,27 @@ public class SettingsController {
     // ── Status ────────────────────────────────────────────────────────────────
     @FXML private Label      statusLabel;
 
+    // ── Backup Tab ────────────────────────────────────────────────────────────
+    @FXML private CheckBox               backupEnabledCheck;
+    @FXML private ComboBox<BackupFrequency> backupFrequencyCombo;
+    @FXML private TextField              backupDirField;
+    @FXML private TextField              retainCountField;
+    @FXML private Label                  lastBackupLabel;
+    @FXML private Label                  nextBackupLabel;
+
+    // ── Data Mgmt Tab ─────────────────────────────────────────────────────────
+    @FXML private ComboBox<String> purgeThresholdCombo;
+    @FXML private Label            purgePreviewLabel;
+    @FXML private Label            purgeStatusLabel;
+
     private String pendingLogoPath; // holds the new logo path before Save
 
     @FXML
     public void initialize() {
         loadConfig();
         refreshPrinterLabel();
+        initBackupTab();
+        initDataMgmtTab();
     }
 
     @FXML
@@ -154,7 +179,109 @@ public class SettingsController {
         stageManager.showDashboard();
     }
 
+    // ── Backup Handlers ───────────────────────────────────────────────────────
+
+    @FXML
+    public void handleChooseBackupDir() {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Select Backup Folder");
+        String current = backupDirField.getText().trim();
+        if (!current.isBlank()) {
+            File dir = new File(current);
+            if (dir.exists()) chooser.setInitialDirectory(dir);
+        }
+        Window window = backupDirField.getScene().getWindow();
+        File selected = chooser.showDialog(window);
+        if (selected != null) {
+            backupDirField.setText(selected.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    public void handleSaveBackup() {
+        BackupConfig cfg = autoBackupService.getConfig();
+        cfg.setEnabled(backupEnabledCheck.isSelected());
+        cfg.setFrequency(backupFrequencyCombo.getValue());
+        cfg.setBackupDirectory(backupDirField.getText().trim());
+        try {
+            int retain = Integer.parseInt(retainCountField.getText().trim());
+            cfg.setRetainCount(Math.max(1, retain));
+        } catch (NumberFormatException e) {
+            cfg.setRetainCount(10);
+        }
+        cfg.setNextBackupAt(null); // let saveConfig recompute
+        BackupConfig saved = autoBackupService.saveConfig(cfg);
+        refreshBackupStatus(saved);
+        showStatus("Backup settings saved!", true);
+        log.info("Backup configuration saved: frequency={}, enabled={}", saved.getFrequency(), saved.getEnabled());
+    }
+
+    @FXML
+    public void handleManualBackup() {
+        try {
+            String path = autoBackupService.performManualBackup();
+            BackupConfig cfg = autoBackupService.getConfig();
+            refreshBackupStatus(cfg);
+            showStatus("Backup created: " + new File(path).getName(), true);
+        } catch (IOException e) {
+            log.error("Manual backup failed", e);
+            showStatus("Backup failed: " + e.getMessage(), false);
+        }
+    }
+
+    @FXML
+    public void handleRestoreBackup() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select Backup File to Restore");
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Database Backup (*.db)", "*.db"));
+        String dir = backupDirField.getText().trim();
+        if (!dir.isBlank()) {
+            File d = new File(dir);
+            if (d.exists()) chooser.setInitialDirectory(d);
+        }
+        Window window = backupDirField.getScene().getWindow();
+        File selected = chooser.showOpenDialog(window);
+        if (selected == null) return;
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "This will REPLACE the current database with the backup.\n" +
+                "A safety copy will be saved automatically.\n\nContinue?",
+                ButtonType.YES, ButtonType.NO);
+        confirm.setTitle("Confirm Restore");
+        confirm.setHeaderText("Restore from: " + selected.getName());
+        confirm.showAndWait().ifPresent(bt -> {
+            if (bt == ButtonType.YES) {
+                try {
+                    autoBackupService.restoreFromFile(selected.getAbsolutePath());
+                    showStatus("Restore complete. Restart the app to apply changes.", true);
+                } catch (IOException e) {
+                    log.error("Restore failed", e);
+                    showStatus("Restore failed: " + e.getMessage(), false);
+                }
+            }
+        });
+    }
+
     // ── Private ───────────────────────────────────────────────────────────────
+
+    private void initBackupTab() {
+        backupFrequencyCombo.getItems().setAll(BackupFrequency.values());
+        BackupConfig cfg = autoBackupService.getConfig();
+        backupEnabledCheck.setSelected(Boolean.TRUE.equals(cfg.getEnabled()));
+        backupFrequencyCombo.setValue(cfg.getFrequency() != null ? cfg.getFrequency() : BackupFrequency.DISABLED);
+        backupDirField.setText(cfg.getBackupDirectory() != null ? cfg.getBackupDirectory() : "");
+        retainCountField.setText(cfg.getRetainCount() != null ? String.valueOf(cfg.getRetainCount()) : "10");
+        refreshBackupStatus(cfg);
+    }
+
+    private void refreshBackupStatus(BackupConfig cfg) {
+        if (lastBackupLabel == null) return;
+        lastBackupLabel.setText(cfg.getLastBackupAt() != null
+                ? cfg.getLastBackupAt().format(DT_FMT) : "Never");
+        nextBackupLabel.setText(cfg.getNextBackupAt() != null
+                ? cfg.getNextBackupAt().format(DT_FMT) : "Not scheduled");
+    }
 
     private void loadConfig() {
         RestaurantConfig cfg = configService.getConfig();
@@ -268,6 +395,62 @@ public class SettingsController {
         if (text == null || text.length() >= width) return text;
         int padding = (width - text.length()) / 2;
         return " ".repeat(padding) + text;
+    }
+
+    // ── Data Mgmt Handlers ────────────────────────────────────────────────────
+
+    private void initDataMgmtTab() {
+        purgeThresholdCombo.getItems().setAll("30 days", "60 days", "90 days", "180 days", "1 year");
+        purgeThresholdCombo.getSelectionModel().select("90 days");
+        purgePreviewLabel.setText("—");
+    }
+
+    @FXML
+    public void handlePreviewPurge() {
+        int days = parsePurgeDays();
+        long count = orderService.countPurgeable(days);
+        purgePreviewLabel.setText(count + " cancelled order" + (count == 1 ? "" : "s") + " will be deleted");
+        purgeStatusLabel.setText("");
+    }
+
+    @FXML
+    public void handlePurgeCancelled() {
+        int days = parsePurgeDays();
+        long preview = orderService.countPurgeable(days);
+        if (preview == 0) {
+            purgeStatusLabel.setText("No cancelled orders found older than " + purgeThresholdCombo.getValue() + ".");
+            purgeStatusLabel.setStyle("-fx-text-fill:#27ae60;-fx-font-weight:bold;");
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "This will permanently delete " + preview + " cancelled order" +
+                (preview == 1 ? "" : "s") + " (and their items) older than " +
+                purgeThresholdCombo.getValue() + ".\n\nThis action cannot be undone. Continue?",
+                ButtonType.YES, ButtonType.NO);
+        confirm.setTitle("Confirm Purge");
+        confirm.setHeaderText("Delete cancelled orders?");
+        confirm.showAndWait().ifPresent(bt -> {
+            if (bt == ButtonType.YES) {
+                int deleted = orderService.purgeCancelledOrders(days);
+                purgePreviewLabel.setText("—");
+                purgeStatusLabel.setText("✔ " + deleted + " order" + (deleted == 1 ? "" : "s") + " deleted successfully.");
+                purgeStatusLabel.setStyle("-fx-text-fill:#27ae60;-fx-font-weight:bold;");
+                log.info("Admin purged {} cancelled orders older than {} days", deleted, days);
+            }
+        });
+    }
+
+    private int parsePurgeDays() {
+        String sel = purgeThresholdCombo.getValue();
+        if (sel == null) return 90;
+        return switch (sel) {
+            case "30 days"  -> 30;
+            case "60 days"  -> 60;
+            case "180 days" -> 180;
+            case "1 year"   -> 365;
+            default         -> 90;
+        };
     }
 
     private String safe(String s) { return s != null ? s : ""; }

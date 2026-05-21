@@ -1,10 +1,10 @@
 /* ================================================================
-   Hotel Management System — Main Stylesheet
+   Rasoi POS — Main Stylesheet
    ================================================================ */
 
 /* ── Root ──────────────────────────────────────────────────────── */
 .root-pane {
-    -fx-background-color: #f0f2f5;
+    -fx-background-color: linear-gradient(to bottom right, #eef2ff, #f0f2f5, #f5f0ff);
 }
 
 /* ── Login Screen ──────────────────────────────────────────────── */
@@ -28,17 +28,22 @@
     -fx-text-fill: #adb5bd;
 }
 
+.login-tagline {
+    -fx-font-size: 11px;
+    -fx-text-fill: #868e96;
+    -fx-font-style: italic;
+}
+
 /* ── Logo Pill (top-bar logo container) ────────────────────────── */
 .logo-pill {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-background-radius: 9;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 10, 0, 0, 2);
 }
 
 /* ── Top Bar ───────────────────────────────────────────────────── */
 .top-bar {
-    -fx-background-color: #0f3460;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+    -fx-background-color: linear-gradient(to right, #0d1b3e, #0f3460, #1a4a80);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0, 0, 3);
 }
 
 .app-title {
@@ -49,52 +54,57 @@
 
 .welcome-label {
     -fx-font-size: 13px;
-    -fx-text-fill: #aac0d8;
+    -fx-text-fill: #c8d8ee;
 }
 
 /* ── Buttons ───────────────────────────────────────────────────── */
 .primary-button {
-    -fx-background-color: #0f3460;
+    -fx-background-color: linear-gradient(to bottom, #1a5cb0, #0f3460);
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-background-radius: 7;
+    -fx-background-radius: 8;
     -fx-padding: 8 18;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.30), 6, 0, 0, 2);
 }
-.primary-button:hover { -fx-background-color: #1a4a80; }
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #2167c4, #1a4a80);
+    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.45), 8, 0, 0, 3);
+}
 
 .secondary-button {
     -fx-background-color: #6c757d;
     -fx-text-fill: white;
     -fx-font-size: 13px;
-    -fx-background-radius: 7;
+    -fx-background-radius: 8;
     -fx-padding: 8 16;
     -fx-cursor: hand;
 }
 .secondary-button:hover { -fx-background-color: #5a6268; }
 
 .danger-button {
-    -fx-background-color: #e74c3c;
+    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-background-radius: 7;
+    -fx-background-radius: 8;
     -fx-padding: 8 16;
     -fx-cursor: hand;
 }
-.danger-button:hover { -fx-background-color: #c0392b; }
+.danger-button:hover { -fx-background-color: linear-gradient(to bottom, #ec6055, #d44638); }
 
 .success-button {
-    -fx-background-color: #27ae60;
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-background-radius: 7;
+    -fx-background-radius: 8;
     -fx-padding: 8 16;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(39,174,96,0.30), 6, 0, 0, 2);
 }
-.success-button:hover { -fx-background-color: #1e8449; }
+.success-button:hover { -fx-background-color: linear-gradient(to bottom, #36d97b, #2ecc71); }
 
 .icon-button {
     -fx-background-color: transparent;
@@ -102,27 +112,30 @@
     -fx-font-size: 13px;
     -fx-cursor: hand;
     -fx-padding: 6 12;
+    -fx-background-radius: 7;
 }
-.icon-button:hover { -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 6; }
+.icon-button:hover {
+    -fx-background-color: rgba(255,255,255,0.18);
+}
 
 /* ── Input Fields ──────────────────────────────────────────────── */
 .input-field {
-    -fx-background-radius: 7;
-    -fx-border-radius: 7;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-border-color: #ced4da;
-    -fx-border-width: 1;
+    -fx-border-width: 1.5;
     -fx-padding: 8 12;
     -fx-font-size: 13px;
     -fx-background-color: white;
 }
 .input-field:focused {
     -fx-border-color: #0f3460;
-    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.25), 6, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.20), 8, 0, 0, 0);
 }
 
 /* ── Labels ────────────────────────────────────────────────────── */
 .error-label {
-    -fx-text-fill: #ff6b6b;
+    -fx-text-fill: #e74c3c;
     -fx-font-size: 13px;
 }
 
@@ -133,7 +146,7 @@
 }
 
 .section-header {
-    -fx-font-size: 16px;
+    -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-text-fill: #1a1a2e;
 }
@@ -141,21 +154,28 @@
 /* ── Stat Cards ────────────────────────────────────────────────── */
 .stat-card {
     -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0, 0, 3);
-    -fx-padding: 18 20;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 14, 0, 0, 4);
+    -fx-padding: 16 18;
     -fx-border-width: 0 0 4 0;
     -fx-border-color: #dee2e6;
 }
-.stat-card-green { -fx-border-color: #27ae60; }
-.stat-card-blue  { -fx-border-color: #2980b9; }
-.stat-card-red   { -fx-border-color: #e74c3c; }
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 18, 0, 0, 6);
+}
+
+/* Legacy modifier classes kept for backward-compat */
+.stat-card-green  { -fx-border-color: #27ae60; }
+.stat-card-blue   { -fx-border-color: #2980b9; }
+.stat-card-red    { -fx-border-color: #e74c3c; }
+.stat-card-orange { -fx-border-color: #e67e22; }
 
 .stat-label {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: #6c757d;
     -fx-font-weight: bold;
+    -fx-letter-spacing: 0.5px;
 }
 .stat-value {
     -fx-font-size: 30px;
@@ -166,30 +186,44 @@
 /* ── Dashboard Action Cards ─────────────────────────────────────── */
 .menu-card {
     -fx-background-color: white;
-    -fx-background-radius: 14;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0, 0, 3);
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.09), 12, 0, 0, 3);
     -fx-cursor: hand;
-    -fx-padding: 20;
+    -fx-padding: 18 14;
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #dee2e6;
 }
 .menu-card:hover {
-    -fx-background-color: #eef4ff;
-    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.20), 18, 0, 0, 5);
+    -fx-background-color: #f6f9ff;
+    -fx-effect: dropshadow(gaussian, rgba(15,52,96,0.22), 24, 0, 0, 8);
 }
+
 .menu-card-label {
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #1a1a2e;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
 }
 .menu-card-sub {
     -fx-font-size: 11px;
-    -fx-text-fill: #6c757d;
+    -fx-text-fill: #868e96;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
 }
 
-/* ── Info Card (billing summary) ───────────────────────────────── */
-.info-card {
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+/* Legacy dashboard card modifier classes kept for backward-compat */
+.menu-card-online    { -fx-border-width: 0 0 4 0; -fx-border-color: #e67e22; }
+.menu-card-settings  { -fx-border-width: 0 0 4 0; -fx-border-color: #8e44ad; }
+.menu-card-import    { -fx-border-width: 0 0 4 0; -fx-border-color: #16a085; }
+.menu-card-accounting{ -fx-border-width: 0 0 4 0; -fx-border-color: #f9a825; }
+
+/* ── Content Panel ──────────────────────────────────────────────── */
+.content-panel {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #fbfcff);
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.11), 14, 0, 0, 3);
 }
 
 /* ── Tables ────────────────────────────────────────────────────── */
@@ -199,7 +233,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 8, 0, 0, 2);
 }
 .table-view .column-header-background {
-    -fx-background-color: #0f3460;
+    -fx-background-color: linear-gradient(to right, #0d2b5e, #0f3460);
     -fx-background-radius: 8 8 0 0;
 }
 .table-view .column-header .label {
@@ -207,35 +241,40 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
 }
-.table-view .table-row-cell:selected {
-    -fx-background-color: #d0e8ff;
+.table-view .table-row-cell:selected,
+.table-view .table-row-cell:focused:selected {
+    -fx-background-color: #c5e3ff;
+}
+.table-view .table-row-cell:selected .table-cell,
+.table-view .table-row-cell:focused:selected .table-cell {
+    -fx-text-fill: #0d2b5e;
 }
 .table-view .table-row-cell:hover {
-    -fx-background-color: #eef4ff;
+    -fx-background-color: #eef5ff;
 }
-
-/* ── Content Panel ──────────────────────────────────────────────── */
-.content-panel {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 2);
+.table-view .table-row-cell:even {
+    -fx-background-color: #fafbff;
 }
 
 /* ── Tab Pane ──────────────────────────────────────────────────── */
 .tab-pane .tab {
-    -fx-background-color: #dee2e6;
+    -fx-background-color: #e9ecef;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-padding: 8 20;
+    -fx-padding: 8 22;
+    -fx-background-radius: 8 8 0 0;
 }
 .tab-pane .tab:selected {
-    -fx-background-color: #0f3460;
+    -fx-background-color: linear-gradient(to bottom, #1a5cb0, #0f3460);
 }
 .tab-pane .tab:selected .tab-label {
     -fx-text-fill: white;
 }
 .tab-pane .tab-content-area {
-    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+}
+.tab-pane .tab:hover:!selected {
+    -fx-background-color: #d0d7de;
 }
 
 /* ── Scroll Bar ────────────────────────────────────────────────── */
@@ -243,15 +282,11 @@
     -fx-background-color: #adb5bd;
     -fx-background-radius: 6;
 }
-
-/* ── Online Orders ──────────────────────────────────────────────── */
-.stat-card-orange { -fx-border-color: #e67e22; }
-
-.menu-card-online {
-    -fx-border-width: 0 0 4 0;
-    -fx-border-color: #e67e22;
+.scroll-bar .thumb:hover {
+    -fx-background-color: #868e96;
 }
 
+/* ── Platform / Delivery badges ────────────────────────────────── */
 .platform-badge {
     -fx-font-size: 11px;
     -fx-font-weight: bold;
@@ -263,6 +298,7 @@
 .badge-swiggy  { -fx-background-color: #fc8019; }
 .badge-mock    { -fx-background-color: #8e44ad; }
 
+/* ── Online order status labels ─────────────────────────────────── */
 .status-new       { -fx-text-fill: #e74c3c; -fx-font-weight: bold; }
 .status-accepted  { -fx-text-fill: #2980b9; -fx-font-weight: bold; }
 .status-preparing { -fx-text-fill: #e67e22; -fx-font-weight: bold; }
@@ -270,28 +306,14 @@
 .status-delivered { -fx-text-fill: #16a085; }
 .status-cancelled { -fx-text-fill: #7f8c8d; }
 
-.order-row-new {
-    -fx-background-color: rgba(231, 76, 60, 0.08);
-}
-.order-row-new:selected {
-    -fx-background-color: #fde8e6;
-}
-
-/* ── Settings & Import Cards ───────────────────────────────────── */
-.menu-card-settings {
-    -fx-border-width: 0 0 4 0;
-    -fx-border-color: #8e44ad;
-}
-
-.menu-card-import {
-    -fx-border-width: 0 0 4 0;
-    -fx-border-color: #16a085;
-}
+.order-row-new          { -fx-background-color: rgba(231, 76, 60, 0.07); }
+.order-row-new:selected { -fx-background-color: #fde8e6; }
 
 /* ── Info Card ─────────────────────────────────────────────────── */
 .info-card {
     -fx-background-color: #eef4ff;
-    -fx-background-radius: 6;
+    -fx-background-radius: 8;
     -fx-border-color: #c5d9f0;
-    -fx-border-radius: 6;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
 }

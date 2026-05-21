@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,7 +19,8 @@
 
             <HBox styleClass="logo-pill" alignment="CENTER">
                 <padding><Insets top="5" right="14" bottom="5" left="14"/></padding>
-                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                <ImageView fitWidth="52" fitHeight="52" preserveRatio="true">
+                    <viewport><Rectangle2D minX="180" minY="60" width="660" height="660"/></viewport>
                     <image><Image url="@/images/rasoi.png"/></image>
                 </ImageView>
             </HBox>

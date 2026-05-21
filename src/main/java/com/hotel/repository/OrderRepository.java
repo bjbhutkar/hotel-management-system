@@ -41,4 +41,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT COUNT(o) FROM Order o " +
            "WHERE o.status = 'CANCELLED' AND o.createdAt BETWEEN :start AND :end")
     Long countCancelledByDateRange(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    List<Order> findByStatusAndCreatedAtBefore(OrderStatus status, LocalDateTime before);
+
+    long countByStatusAndCreatedAtBefore(OrderStatus status, LocalDateTime before);
 }

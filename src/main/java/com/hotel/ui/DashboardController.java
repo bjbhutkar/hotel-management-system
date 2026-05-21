@@ -70,6 +70,7 @@ public class DashboardController {
     @FXML public void openOnlineOrders()     throws IOException { stageManager.showOnlineOrdersDashboard(); }
     @FXML public void openSettings()         throws IOException { stageManager.showSettings(); }
     @FXML public void openImportData()       throws IOException { stageManager.showImportData(); }
+    @FXML public void openAccountingExport() throws IOException { stageManager.showAccountingExport(); }
     @FXML public void handleLogout()         throws IOException {
         userService.logout();
         stageManager.showLoginScreen();
