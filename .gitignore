@@ -1,6 +1,11 @@
-# Maven
-target/
-*.jar
+# Maven — exclude all build artifacts except the distributable fat JAR
+target/classes/
+target/generated-sources/
+target/generated-test-sources/
+target/maven-archiver/
+target/maven-status/
+target/test-classes/
+target/*.jar.original
 *.war
 *.ear
 
